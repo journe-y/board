@@ -16,17 +16,20 @@
         </b-collapse>
       </b-container>
     </b-navbar>
-    <modal v-bind:show="loginShow" v-on:@off="modalOnOff">slot</modal>
+    <modal v-bind:show="loginShow" v-on:@off="modalOnOff"
+      ><login></login
+    ></modal>
   </div>
 </template>
 <script lang="ts">
 // import { defineComponent } from '@vue/composition-api'/
 import Vue from "vue";
 import Modal from "./Modal.vue";
-
+import LoginForm from "./LoginForm.vue";
 export default Vue.extend({
   components: {
     modal: Modal,
+    login: LoginForm,
   },
   data() {
     return {

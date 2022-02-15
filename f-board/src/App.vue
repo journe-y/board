@@ -28,7 +28,7 @@ export default {
   display: flex;
   direction: row;
   width: 100vw;
-  background-color: rgb(255, 251, 247);
+  background-color: rgb(248, 249, 255);
 }
 .side {
   width: 300px;
