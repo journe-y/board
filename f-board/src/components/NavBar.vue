@@ -9,16 +9,20 @@
         <b-collapse id="nav-collapse" class="align__right" is-nav>
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
-            <b-button variant="outline-primary" v-on:click="modalOnOff"
-              >Login</b-button
+            <b-button-group>
+              <b-button variant="outline-primary" v-on:click="modalOnOff"
+                >Login</b-button
+              >
+              <b-button variant="outline-primary" v-on:click="modalOnOff"
+                >Join</b-button
+              ></b-button-group
             >
           </b-navbar-nav>
         </b-collapse>
       </b-container>
     </b-navbar>
-    <modal v-bind:show="loginShow" v-on:@off="modalOnOff"
-      ><login></login
-    ></modal>
+    <modal v-bind:show="loginShow" v-on:@off="modalOnOff"><login /></modal>
+    <modal v-bind:show="loginShow" v-on:@off="modalOnOff"><register /></modal>
   </div>
 </template>
 <script lang="ts">
@@ -26,14 +30,17 @@
 import Vue from "vue";
 import Modal from "./Modal.vue";
 import LoginForm from "./LoginForm.vue";
+import RegisterForm from "./RegisterForm.vue";
 export default Vue.extend({
   components: {
     modal: Modal,
     login: LoginForm,
+    register: RegisterForm,
   },
   data() {
     return {
       test: "board",
+      userEvent: "",
       loginShow: false,
     };
   },

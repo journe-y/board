@@ -41,7 +41,7 @@ export default Vue.extend({
 .custom-modal {
   border-radius: 10px;
   width: 400px;
-  height: 300px;
+  min-height: 300px;
   background-color: white;
   padding: 10px;
 }

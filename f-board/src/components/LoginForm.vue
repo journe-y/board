@@ -1,5 +1,7 @@
 <template>
   <div class="login-form">
+    <h4>Login</h4>
+    <br />
     <pattern-input
       class="fullwidth"
       v-model="inputId"

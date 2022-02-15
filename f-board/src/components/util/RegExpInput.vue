@@ -2,7 +2,6 @@
   <div role="group">
     <label for="input-live">{{ title }}</label>
     <b-form-input
-      id="input-live-i"
       v-model="value"
       :state="idState"
       v-on:keyup="onKeyup"
