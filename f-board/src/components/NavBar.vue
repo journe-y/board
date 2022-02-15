@@ -9,36 +9,43 @@
         <b-collapse id="nav-collapse" class="align__right" is-nav>
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
-            <b-button variant="success" v-on:click="loginFunc">Login</b-button>
+            <b-button variant="success" v-on:click="modalOnOff">Login</b-button>
           </b-navbar-nav>
         </b-collapse>
       </b-container>
     </b-navbar>
+    <modal v-bind:show="loginShow" v-on:@off="modalOnOff">slot</modal>
   </div>
 </template>
 <script lang="ts">
 // import { defineComponent } from '@vue/composition-api'/
+import Vue from "vue";
+import Modal from "./Modal.vue";
 
-export default {
+export default Vue.extend({
+  components: {
+    'modal': Modal,
+  },
   data() {
     return {
       test: "board",
+      loginShow: false,
     };
   },
   methods: {
-    loginFunc() {
-      alert();
+    modalOnOff(): void {
+      this.loginShow = !this.loginShow;
     },
   },
-};
+});
 </script>
 
 <style scoped>
 .navbar {
-    height: 70px;
+  height: 70px;
 }
 .align__right {
-    flex-direction: row-reverse;
-    width: 100%;
+  flex-direction: row-reverse;
+  width: 100%;
 }
 </style>
