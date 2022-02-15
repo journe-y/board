@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show" class="backdrop" v-on:click="offModal">
+  <div v-if="show" class="backdrop" v-on:click.stop="offModal">
     <!-- <div class="custom-modal"><slot></slot></div> -->
     <div class="custom-modal"><slot></slot></div>
   </div>
@@ -12,15 +12,14 @@ export default Vue.extend({
     show: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   data() {
-    return {
-    };
+    return {};
   },
   methods: {
-    offModal(): void {
-      this.$emit("@off");
+    offModal(ev): void {
+      ev.target.classList.contains("backdrop") ? this.$emit("@off") : null;
     },
   },
 });
@@ -28,6 +27,7 @@ export default Vue.extend({
 
 <style scoped>
 .backdrop {
+  z-index: 9999;
   display: flex;
   align-items: center;
   justify-content: center;

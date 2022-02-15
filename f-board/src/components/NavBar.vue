@@ -1,15 +1,17 @@
 <template>
   <div>
-    <b-navbar toggleable="lg" type="dark" variant="success" class="navbar">
+    <b-navbar toggleable="lg" type="dark" variant="" class="navbar">
       <b-container>
-        <b-navbar-brand href="#">{{ test }}</b-navbar-brand>
+        <b-navbar-brand class="logo" href="#">{{ test }}</b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" class="align__right" is-nav>
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
-            <b-button variant="success" v-on:click="modalOnOff">Login</b-button>
+            <b-button variant="outline-primary" v-on:click="modalOnOff"
+              >Login</b-button
+            >
           </b-navbar-nav>
         </b-collapse>
       </b-container>
@@ -24,7 +26,7 @@ import Modal from "./Modal.vue";
 
 export default Vue.extend({
   components: {
-    'modal': Modal,
+    modal: Modal,
   },
   data() {
     return {
@@ -41,8 +43,12 @@ export default Vue.extend({
 </script>
 
 <style scoped>
+.logo {
+  color: #0d6efd !important;
+}
 .navbar {
   height: 70px;
+  box-shadow: 0 0.25rem 0.25rem rgb(0 0 0 / 25%);
 }
 .align__right {
   flex-direction: row-reverse;
