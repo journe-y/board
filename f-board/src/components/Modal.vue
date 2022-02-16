@@ -19,7 +19,7 @@ export default Vue.extend({
   },
   methods: {
     offModal(e: { target: Element }): void {
-      e.target.classList.contains("backdrop") ? this.$emit("@off") : null;
+      e.target.classList.contains("backdrop") ? this.$emit("@off", e) : null;
     },
   },
 });

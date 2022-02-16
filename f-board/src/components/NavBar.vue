@@ -10,10 +10,16 @@
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
             <b-button-group>
-              <b-button variant="outline-primary" v-on:click="modalOnOff"
+              <b-button
+                variant="outline-primary"
+                class="login-btn"
+                v-on:click="modalOnOff"
                 >Login</b-button
               >
-              <b-button variant="outline-primary" v-on:click="modalOnOff"
+              <b-button
+                variant="outline-primary"
+                class="join-btn"
+                v-on:click="modalOnOff"
                 >Join</b-button
               ></b-button-group
             >
@@ -21,16 +27,18 @@
         </b-collapse>
       </b-container>
     </b-navbar>
-    <modal v-bind:show="loginShow" v-on:@off="modalOnOff"><login /></modal>
-    <modal v-bind:show="loginShow" v-on:@off="modalOnOff"><register /></modal>
+    <modal v-bind:show="loginShow" v-on:@off="modalOnOff"
+      ><login v-if="userEvent === 'login'" />
+      <register v-if="userEvent === 'join'" />
+    </modal>
   </div>
 </template>
 <script lang="ts">
-// import { defineComponent } from '@vue/composition-api'/
 import Vue from "vue";
 import Modal from "./Modal.vue";
 import LoginForm from "./LoginForm.vue";
 import RegisterForm from "./RegisterForm.vue";
+
 export default Vue.extend({
   components: {
     modal: Modal,
@@ -45,7 +53,13 @@ export default Vue.extend({
     };
   },
   methods: {
-    modalOnOff(): void {
+    modalOnOff(e: { target: Element }): void {
+      const hasNotBackDrop = !e.target.classList.contains("backdrop");
+      if (hasNotBackDrop && e.target.classList.contains("login-btn")) {
+        this.userEvent = "login";
+      } else if (hasNotBackDrop && e.target.classList.contains("join-btn")) {
+        this.userEvent = "join";
+      }
       this.loginShow = !this.loginShow;
     },
   },

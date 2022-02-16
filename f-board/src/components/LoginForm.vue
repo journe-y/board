@@ -1,27 +1,23 @@
 <template>
   <div class="login-form">
-    <h4>Login</h4>
+    <h4>로그인</h4>
     <br />
-    <pattern-input
-      class="fullwidth"
-      v-model="inputId"
-      v-bind:pattern="aboutId.idRegExp"
-      @keyup="changeId"
-      v-bind:placeHolder="aboutId.placeHolder"
-      v-bind:describedby="aboutId.description"
-      v-bind:title="aboutId.title"
-    />
-    <br />
-    <pattern-input
-      class="fullwidth"
-      type="password"
-      v-model="inputPw"
-      v-bind:pattern="aboutPw.idRegExp"
-      @keyup="changePw"
-      v-bind:placeHolder="aboutPw.placeHolder"
-      v-bind:describedby="aboutPw.description"
-      v-bind:title="aboutPw.title"
-    />
+    <div role="group" class="fullwidth">
+      <!-- <label for="input-live">{{  }}</label> -->
+      <b-form-input
+        v-model="inputId"
+        type="text"
+        placeholder="아이디"
+        trim
+      ></b-form-input>
+      <br />
+      <b-form-input
+        v-model="inputPw"
+        type="password"
+        placeholder="비밀번호"
+        trim
+      ></b-form-input>
+    </div>
     <br />
     <b-button class="fullwidth" pill variant="primary">Login</b-button>
     <a class="join-link" href="javascript:void()">회원가입</a>
@@ -29,36 +25,14 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
-import RegExpInput from "./util/RegExpInput.vue";
+
 export default Vue.extend({
-  components: {
-    "pattern-input": RegExpInput,
-  },
+  components: {},
   data() {
     return {
       inputId: "",
       inputPw: "",
-      aboutId: {
-        idRegExp: /^[a-z0-9]{8,10}$/g,
-        description: "영어또는 숫자 포함 8~10자",
-        placeHolder: "아이디 입력",
-        title: "아이디 : ",
-      },
-      aboutPw: {
-        idRegExp: /^[a-z0-9]{8,10}$/g,
-        description: "영어또는 숫자 포함 8~10자",
-        placeHolder: "비밀번호 입력",
-        title: "비밀번호 : ",
-      },
     };
-  },
-  methods: {
-    changeId(value: string) {
-      this.inputId = value;
-    },
-    changePw(value: string) {
-      this.inputPw = value;
-    },
   },
 });
 </script>
