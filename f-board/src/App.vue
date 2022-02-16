@@ -5,7 +5,13 @@
       <aside class="side">
         <sidebar></sidebar>
       </aside>
-      <article class="main"><card /></article>
+      <article class="main">
+        <card />
+        <card />
+        <card />
+        <card />
+        
+      </article>
     </section>
   </div>
 </template>
@@ -32,17 +38,21 @@ body,
   min-height: 100vh;
 }
 .main-container {
-    padding-top: 70px;
-    display: flex;
-    background-color: rgb(248, 249, 255);
-    /* position: fixed;
-    width: 100%;
-    height: 100%; */
-    height: 100%;
+  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  padding-top: 70px;
+  display: flex;
+  background-color: rgb(248, 249, 255);
 }
 .main {
+  display: flex;
+  justify-content: center;
   width: 100%;
-  outline: 2px dotted brown;
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+
 }
 .side {
   width: 300px;

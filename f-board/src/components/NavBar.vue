@@ -74,7 +74,7 @@ export default Vue.extend({
   background-color: white;
   z-index: 100;
   height: 70px;
-  box-shadow: 0 0.25rem 0.25rem rgb(0 0 0 / 25%);
+  box-shadow: 0 0.25rem 0.25rem rgb(0 0 0 / 18%);
   position: fixed;
   width: 100%;
 }
