@@ -71,9 +71,12 @@ export default Vue.extend({
   color: #0d6efd !important;
 }
 .navbar {
+  background-color: white;
   z-index: 100;
   height: 70px;
   box-shadow: 0 0.25rem 0.25rem rgb(0 0 0 / 25%);
+  position: fixed;
+  width: 100%;
 }
 .align__right {
   flex-direction: row-reverse;
