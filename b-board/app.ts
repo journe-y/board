@@ -13,10 +13,6 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
-console.log(`==========${config.development.password}===========`);
-console.log(`==========${config.development.username}===========`);
-console.log(`==========${config.development.database}===========`);
-console.log(`==========${JSON.stringify(config.development)}===========`);
 //db connect
 sequelize.sync({ force: false })
     .then(() => {
