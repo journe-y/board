@@ -6,7 +6,7 @@
       class="fullwidth"
       v-model="inputId"
       v-bind:pattern="aboutId.idRegExp"
-      @keyup="changeId"
+      v-on:@keyup="changeId"
       v-bind:placeHolder="aboutId.placeHolder"
       v-bind:describedby="aboutId.description"
       v-bind:title="aboutId.title"
@@ -17,7 +17,7 @@
       type="password"
       v-model="inputPw"
       v-bind:pattern="aboutPw.idRegExp"
-      @keyup="changePw"
+      v-on:@keyup="changePw"
       v-bind:placeHolder="aboutPw.placeHolder"
       v-bind:describedby="aboutPw.description"
       v-bind:title="aboutPw.title"
@@ -66,11 +66,13 @@ export default Vue.extend({
       this.inputPw = value;
     },
     onJoin() {
-      // axios.defaults.baseURL = 'http://localhost:3001';
+      const frm = new FormData();
+      frm.append("id", this.inputId);
+      frm.append("pw", this.inputPw);
 
       const JOIN_URL = "/auth/register";
       axios
-        .post(JOIN_URL, { userid: "jiwonid", userps: "jiwonpw" })
+        .post(JOIN_URL, frm)
         .then((res) => {
           console.log(res);
         })
