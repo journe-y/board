@@ -24,13 +24,17 @@
     />
 
     <br />
-    <b-button class="fullwidth" pill variant="primary">Register</b-button>
+    <b-button class="fullwidth" pill variant="primary" v-on:click="onJoin"
+      >Register</b-button
+    >
     <a class="login-link" href="javascript:void()">로그인 하기</a>
   </div>
 </template>
 <script lang="ts">
 import Vue from "vue";
+import axios from "axios";
 import RegExpInput from "./util/RegExpInput.vue";
+
 export default Vue.extend({
   components: {
     "pattern-input": RegExpInput,
@@ -60,7 +64,20 @@ export default Vue.extend({
     },
     changePw(value: string) {
       this.inputPw = value;
-    }
+    },
+    onJoin() {
+      // axios.defaults.baseURL = 'http://localhost:3001';
+
+      const JOIN_URL = "/auth/register";
+      axios
+        .post(JOIN_URL, { userid: "jiwonid", userps: "jiwonpw" })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
   },
 });
 </script>

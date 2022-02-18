@@ -19,7 +19,9 @@
       ></b-form-input>
     </div>
     <br />
-    <b-button class="fullwidth" pill variant="primary">Login</b-button>
+    <b-button class="fullwidth" pill variant="primary" v-on:click="onlogin"
+      >Login</b-button
+    >
     <a class="join-link" href="javascript:void()">회원가입</a>
   </div>
 </template>
@@ -27,12 +29,17 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  components: {},
   data() {
     return {
       inputId: "",
       inputPw: "",
     };
+  },
+  methods: {
+    onlogin() {
+      console.log('login요청')
+      
+    },
   },
 });
 </script>
