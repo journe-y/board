@@ -66,13 +66,12 @@ export default Vue.extend({
       this.inputPw = value;
     },
     onJoin() {
-      const frm = new FormData();
-      frm.append("id", this.inputId);
-      frm.append("pw", this.inputPw);
-
       const JOIN_URL = "/auth/register";
       axios
-        .post(JOIN_URL, frm)
+        .post(JOIN_URL, {
+          userid: this.inputId,
+          userpw: this.inputPw,
+        })
         .then((res) => {
           console.log(res);
         })
