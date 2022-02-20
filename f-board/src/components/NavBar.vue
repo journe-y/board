@@ -29,7 +29,7 @@
     </b-navbar>
     <modal v-bind:show="loginShow" v-on:@off="modalOnOff"
       ><login v-if="userEvent === 'login'" />
-      <register v-if="userEvent === 'join'" />
+      <register v-if="userEvent === 'join'" v-on:@joinOff="modalOff"/>
     </modal>
   </div>
 </template>
@@ -62,6 +62,9 @@ export default Vue.extend({
       }
       this.loginShow = !this.loginShow;
     },
+    modalOff():void{
+      this.loginShow = !this.loginShow;
+    }
   },
 });
 </script>

@@ -2,8 +2,9 @@
   <div role="group">
     <label for="input-live">{{ title }}</label>
     <b-form-input
+      ref="input"
       v-model="value"
-      :state="idState"
+      :state="state"
       v-on:keyup="onKeyup"
       v-bind:type="type"
       aria-describedby="input-live-help input-live-feedback"
@@ -42,9 +43,13 @@ export default Vue.extend({
       type: String,
       default: "text",
     },
+    enterSeubmit: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
-    idState(): boolean | null {
+    state(): boolean | null {
       if (this.value.length === 0) return null;
       if (this.value.match(new RegExp(this.pattern))) {
         return true;
@@ -55,12 +60,19 @@ export default Vue.extend({
   },
   data() {
     return {
-      value: "",
+      value: "" as string,
     };
   },
   methods: {
-    onKeyup() {
-      this.$emit("@keyup", this.value);
+    onKeyup(e: KeyboardEvent) {
+      if (this.enterSeubmit && e.keyCode === 13) {
+        this.$emit("@submit");
+      }
+      this.$emit("@keyup", this.value, this.state);
+    },
+    focusInput() {
+      const inputRef = this.$refs.input as any;
+      inputRef.focus();
     },
   },
 });
