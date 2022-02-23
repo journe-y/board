@@ -36,8 +36,8 @@
       </b-container>
     </b-navbar>
     <modal v-bind:show="this.$store.state.onModal" v-on:@off="modalOnOff"
-      ><login v-if="userEvent === 'login'" />
-      <register v-else-if="userEvent === 'join'" />
+      ><login v-if="userEvent === 'login'" v-on:@goRegister="changeUserEvent" />
+      <register v-else-if="userEvent === 'join'" v-on:@goLogin="changeUserEvent"/>
       <login v-else />
     </modal>
   </div>
@@ -86,6 +86,9 @@ export default Vue.extend({
       localStorage.removeItem("refreshToken");
       this.$store.commit("SET_AUTH", false);
     },
+    changeUserEvent(type:string){
+      this.userEvent = type;
+    }
   },
 });
 </script>

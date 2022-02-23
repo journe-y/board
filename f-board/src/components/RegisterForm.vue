@@ -31,7 +31,7 @@
     <b-button class="fullwidth" pill variant="primary" v-on:click="onJoin"
       >Register</b-button
     >
-    <button class="login-link">로그인 하기</button>
+    <button class="user-link-btn" v-on:click="goLogin">로그인 하기</button>
   </div>
 </template>
 
@@ -112,6 +112,9 @@ export default Vue.extend({
         );
       }
     },
+    goLogin(){
+      this.$emit('@goLogin',"login");
+    }
   },
 });
 </script>
@@ -127,8 +130,5 @@ export default Vue.extend({
 .fullwidth {
   width: 100%;
 }
-.login-link {
-  margin-top: 5px;
-  font-size: 12px;
-}
+
 </style>

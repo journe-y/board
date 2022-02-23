@@ -87,4 +87,13 @@ body,
 .fullwidth {
   width: 100%;
 }
+.user-link-btn {
+  text-decoration: underline;
+  color: #0d6efd;
+  outline: none;
+  border: none;
+  background-color: #ffffff00;
+  margin-top: 5px;
+  font-size: 12px;
+}
 </style>

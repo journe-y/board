@@ -24,7 +24,7 @@
     <b-button class="fullwidth" pill variant="primary" v-on:click="onlogin"
       >Login</b-button
     >
-    <button class="join-link">회원가입 하기</button>
+    <button v-on:click="goRegister" class="user-link-btn">회원가입 하기</button>
   </div>
 </template>
 <script lang="ts">
@@ -81,6 +81,9 @@ export default Vue.extend({
         this.onlogin();
       }
     },
+    goRegister(){
+      this.$emit('@goRegister',"join");
+    }
   },
 });
 </script>
