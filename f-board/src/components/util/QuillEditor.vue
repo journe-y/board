@@ -17,6 +17,8 @@
       @change="onEditorChange($event)"
     />
     <button class="add-post" v-on:click="submitPost">발행</button>
+    <input id="file" type="file" v-on:change="uploadedFile" />
+
   </div>
 </template>
 
@@ -35,6 +37,14 @@ const toolbarOptions = [
   [{ align: [] }],
   ["image"],
 ];
+const customTool = {
+  container:toolbarOptions,
+  handlers:{
+    image:function(){
+      document.getElementById('file').click()
+    }
+  }
+};
 export default {
   data() {
     return {
@@ -44,7 +54,7 @@ export default {
         readOnly: true,
         theme: "snow",
         modules: {
-          toolbar: toolbarOptions,
+          toolbar: customTool,
         },
       },
     };
@@ -65,6 +75,12 @@ export default {
     },
     submitPost() {
       this.$emit("@submit", this.content);
+    },
+    onLoad() {
+      alert();
+    },
+    uploadedFile() {
+      alert();
     },
   },
   computed: {
