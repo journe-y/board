@@ -31,7 +31,7 @@
     <b-button class="fullwidth" pill variant="primary" v-on:click="onJoin"
       >Register</b-button
     >
-    <a class="login-link" href="javascript:void()">로그인 하기</a>
+    <button class="login-link">로그인 하기</button>
   </div>
 </template>
 
@@ -102,15 +102,15 @@ export default Vue.extend({
           },
           () => {
             alert("회원가입 성공! 로그인해주세요");
-            this.$emit('@joinOff');
+            this.$store.commit("SET_ON_MODAL", false);
           },
-          () => {
+          (msg) => {
+            alert(msg);
             const idRef = this.$refs.id as any;
             idRef.focusInput();
           }
         );
       }
-
     },
   },
 });

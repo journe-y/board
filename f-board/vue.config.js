@@ -1,11 +1,12 @@
 module.exports = {
     publicPath: '/board/',
     devServer: {
-        proxy : {
-            '^/':{
+        historyApiFallback: true,
+        proxy: {
+            '^/': {
                 target: 'http://localhost:3001',
                 changeOrigin: true
             }
-        }
+        },
     }
 }

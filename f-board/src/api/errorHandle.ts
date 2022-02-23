@@ -6,8 +6,7 @@ export function handler({ response }:any) {
         return;
     }
     if (isBadRequest(response.status)) {
-        alert(response.data.msg);
-        return;
+        return response.data.msg;
     }
 
     function isInternalServerError(status: number): boolean {
@@ -16,5 +15,6 @@ export function handler({ response }:any) {
 
     function isBadRequest(status: number): boolean {
         return 400 <= status && status < 500;
+        
     }
 }

@@ -12,6 +12,10 @@ module.exports = class User extends Sequelize.Model {
         type: Sequelize.STRING(100),
         allowNull: false,
       },
+      refresh: {
+        type: Sequelize.TEXT,
+        allowNull: true,
+      }
     }, {
       sequelize,
       timestamps: false,
@@ -19,12 +23,12 @@ module.exports = class User extends Sequelize.Model {
       modelName: 'User',
       tableName: 'users',
       paranoid: false,
-      charset: 'utf8',
-      collate: 'utf8_general_ci',
+      charset: 'utf8mb4',
+      collate: 'utf8mb4_general_ci',
     });
   }
 
   static associate(db) {
-    db.User.hasMany(db.Post, { foreignKey: 'userid', sourceKey: 'id' });
+    db.User.hasMany(db.Post, { foreignKey: 'userid', sourceKey: 'userid' });
   }
 };
