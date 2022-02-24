@@ -7,6 +7,10 @@ module.exports = class Post extends Sequelize.Model {
                 type: Sequelize.STRING(200),
                 allowNull: false,
             },
+            imgpath:{
+                type:Sequelize.STRING(500),
+                allowNull: true,
+            },
             contents: {
                 type: Sequelize.TEXT,
                 allowNull: false,

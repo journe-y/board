@@ -41,11 +41,11 @@ exports.newToken = async (userid) => {
   const token = jwt.sign({
     id: userid
   }, process.env.JWT_SECRET, {
-    expiresIn: '5s',
+    expiresIn: '30m',
     issuer: 'board',
   });
   const refreshToken = jwt.sign({}, process.env.JWT_SECRET, {
-    expiresIn: '20s',
+    expiresIn: '50m',
     issuer: 'board',
   });
   await User.update({ refresh: refreshToken }, { where: { userid } });
