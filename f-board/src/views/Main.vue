@@ -23,5 +23,8 @@ export default {
     sidebar: Sidebar,
     card: PostCard,
   },
+  create(){
+    console.log('create')
+  }
 };
 </script>

@@ -8,7 +8,7 @@
       @ready="onEditorReady($event)"
     />
     <button class="add-post" v-on:click="submitPost">발행</button>
-    <input id="file" type="file" accept="image/*" v-on:change="uploadedFile" />
+    <input style="opacity:0;" id="file" type="file" accept="image/*" v-on:change="uploadedFile" />
   </div>
 </template>
 
@@ -59,7 +59,6 @@ export default {
       console.log("editor ready!", quill);
     },
     onEditorChange({ quill, html, text }) {
-      //console.log("editor change!", quill, html, text);
       this.content = html;
     },
     submitPost() {

@@ -9,7 +9,8 @@ const routes: Array<RouteConfig> = [
   {
     path: '/',
     name: 'Main',
-    component: Main
+    //component: Main
+    component: () => import('../views/Main.vue'),
   },
   {
     path: '/write',

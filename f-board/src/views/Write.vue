@@ -1,13 +1,14 @@
 <template>
   <section class="write-container">
     <b-form-input
+      ref="title"
       class="fullwidth title"
       v-model="title"
       type="text"
       placeholder="글 제목"
       trim
     />
-    <b-form-select v-model="selected" class="mb-3 form-control fullwidth title">
+    <b-form-select ref="category" v-model="selected" class="mb-3 form-control fullwidth title">
       <b-form-select-option :value="null" disabled>
         카테고리 선택
       </b-form-select-option>
@@ -50,6 +51,20 @@ export default Vue.extend({
   methods: {
     writePost(html: string) {
       this.postContent = html;
+      if (this.title === "") {
+        alert("글 제목을 입력해주세요");
+        const titleRef = this.$refs.title as any;
+        titleRef.focus();
+        return;
+      }else if(this.selected === ""){
+        alert("카테고리를 선택해주세요");
+        const category = this.$refs.category as any;
+        category.focus();
+        return;
+      }else if(this.postContent === ""){
+         alert("본문을 작성해주세요");
+        return;
+      }
       writePostReq(
         "/post/create",
         {
@@ -59,10 +74,10 @@ export default Vue.extend({
         },
         () => {
           alert("글작성 완료");
+          this.$router.push({name:'Main'});
         },
         (err) => {
           console.log(err);
-
           alert("글작성 실패");
         }
       );
