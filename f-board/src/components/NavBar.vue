@@ -2,9 +2,8 @@
   <div>
     <b-navbar toggleable="lg" type="dark" variant="" class="navbar">
       <b-container>
-        <b-navbar-brand class="logo" href="#"
-          >{{ test }}--{{ this.$store.state.isMember }}</b-navbar-brand
-        >
+        <router-link class="logo" to="/">{{ test }}</router-link>
+
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" class="align__right" is-nav>
@@ -37,7 +36,10 @@
     </b-navbar>
     <modal v-bind:show="this.$store.state.onModal" v-on:@off="modalOnOff"
       ><login v-if="userEvent === 'login'" v-on:@goRegister="changeUserEvent" />
-      <register v-else-if="userEvent === 'join'" v-on:@goLogin="changeUserEvent"/>
+      <register
+        v-else-if="userEvent === 'join'"
+        v-on:@goLogin="changeUserEvent"
+      />
       <login v-else />
     </modal>
   </div>
@@ -47,7 +49,7 @@ import Vue from "vue";
 import Modal from "./Modal.vue";
 import LoginForm from "./LoginForm.vue";
 import RegisterForm from "./RegisterForm.vue";
-import { mapState, mapActions, mapMutations } from "vuex";
+import { logoutReq } from "../api/authRequest";
 
 export default Vue.extend({
   components: {
@@ -57,7 +59,7 @@ export default Vue.extend({
   },
   data() {
     return {
-      test: "board" as string,
+      test: "BOARD" as string,
       userEvent: "" as string,
     };
   },
@@ -82,13 +84,15 @@ export default Vue.extend({
       this.userEvent = "login";
     },
     logout() {
-      localStorage.removeItem("accessToken");
-      localStorage.removeItem("refreshToken");
-      this.$store.commit("SET_AUTH", false);
+      // localStorage.removeItem("accessToken");
+      // localStorage.removeItem("refreshToken");
+      // this.$store.commit("SET_AUTH", false);
+      logoutReq();
+      this.$router.push({ name: "Main" });
     },
-    changeUserEvent(type:string){
+    changeUserEvent(type: string) {
       this.userEvent = type;
-    }
+    },
   },
 });
 </script>
@@ -96,6 +100,11 @@ export default Vue.extend({
 <style scoped>
 .logo {
   color: #0d6efd !important;
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: 700;
 }
 .navbar {
   background-color: white;

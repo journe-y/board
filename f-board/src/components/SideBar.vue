@@ -1,9 +1,14 @@
 <template>
   <article class="sidebar-contaier">
     <b-list-group class="test">
-      <b-list-group-item button v-for="item in list" :key="item">{{
-        item
-      }}</b-list-group-item>
+      <b-list-group-item
+        button
+        v-for="item in list"
+        :key="item"
+        v-on:click="listClick(item)"
+        v-bind:class="{ active: item === selected }"
+        >{{ item }}</b-list-group-item
+      >
     </b-list-group>
   </article>
 </template>
@@ -15,10 +20,23 @@ export default Vue.extend({
   // category 선택시 store 사용하여 렌더링
   data() {
     return {
-      list: ["HTTP", "SpringBoot", "Node.js", "Vue.js", "React.js", "ect"],
+      selected: "ALL",
+      list: [
+        "ALL",
+        "HTTP",
+        "SpringBoot",
+        "Node.js",
+        "Vue.js",
+        "React.js",
+        "ect",
+      ],
     };
   },
-  methods: {},
+  methods: {
+    listClick(tapName:string) {
+      this.selected = tapName;
+    },
+  },
 });
 </script>
 

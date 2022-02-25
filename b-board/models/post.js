@@ -16,7 +16,7 @@ module.exports = class Post extends Sequelize.Model {
                 allowNull: false,
             },
             date: {
-                type: Sequelize.DATE,
+                type: Sequelize.DATEONLY,
                 allowNull: false,
             },
             category: {

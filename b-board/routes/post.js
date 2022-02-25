@@ -33,8 +33,25 @@ const upload = multer({
 });
 
 router.post('/upload', upload.single('img'), (req, res, next) => {
-    const IMG_URL = `http://localhost:3001/uploads/${req.file.filename}`;
-    res.json({ url: IMG_URL });
+    const url = `http://localhost:3001/uploads/${req.file.filename}`;
+    res.json({ url });
+})
+
+router.get('/list', async (req, res) => {
+    const posts = await Post.findAll({
+        attributes: ['id', 'title', 'category', 'date', 'imgpath', 'userid']
+    });
+    res.json({ posts })
+})
+
+// router.get('/list:category', (req, res) => {
+//     console.log('=====================',category);
+//     res.json({})
+// })
+
+router.get('/read/:id', async (req, res) => {
+    const post = await Post.findOne({ where: { id: req.params.id } })
+    res.json({ post })
 })
 
 module.exports = router;

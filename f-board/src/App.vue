@@ -61,6 +61,7 @@ body,
   width: 300px;
 }
 .add-post {
+  z-index: 9999;
   outline: none;
   border: none;
   cursor: pointer;
