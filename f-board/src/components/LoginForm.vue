@@ -63,10 +63,10 @@ export default Vue.extend({
           },
           ({ data }) => {
             alert(data.msg);
-            console.log(data.token);
             localStorage.setItem("accessToken", data.token);
             localStorage.setItem("refreshToken", data.refreshToken);
-            this.$store.commit("SET_AUTH", true);
+            localStorage.setItem("userid", this.inputId);
+           this.$store.commit("SET_AUTH", this.inputId);
             // this.$emit('@loginOff');
             this.$store.commit("SET_ON_MODAL", false);
           },
@@ -81,9 +81,9 @@ export default Vue.extend({
         this.onlogin();
       }
     },
-    goRegister(){
-      this.$emit('@goRegister',"join");
-    }
+    goRegister() {
+      this.$emit("@goRegister", "join");
+    },
   },
 });
 </script>

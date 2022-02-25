@@ -16,7 +16,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/write',
     name: 'Write',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Write.vue'),
+    component: () => import('../views/Write.vue'),
     beforeEnter: function (to, from, next) {
       authReq('/post/write', () => {
         next();
@@ -25,6 +25,11 @@ const routes: Array<RouteConfig> = [
       });
 
     }
+  },
+  {
+    path:'/modify/:id',
+    name:'Modify',
+    component: () => import('../views/Write.vue'),
   },
   {
     path: `/read/:id`,

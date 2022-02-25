@@ -29,7 +29,8 @@ export function authReq(URL: string, success: CallbackFunction, error: CallbackF
 }
 
 export function logoutReq() {
-    store.commit("SET_AUTH", false);
+    store.commit("SET_AUTH", null);
     localStorage.removeItem('token')
     localStorage.removeItem('refreshToken')
+    localStorage.removeItem('userid')
 }

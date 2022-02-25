@@ -9,7 +9,7 @@
         <b-collapse id="nav-collapse" class="align__right" is-nav>
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
-            <b-button-group v-if="!this.$store.state.isMember">
+            <b-button-group v-if="!this.$store.state.userid">
               <b-button
                 variant="outline-primary"
                 class="login-btn"
@@ -24,7 +24,7 @@
               ></b-button-group
             >
             <b-button
-              v-if="this.$store.state.isMember"
+              v-if="this.$store.state.userid"
               variant="outline-primary"
               class="login-btn"
               v-on:click="logout"
@@ -84,11 +84,8 @@ export default Vue.extend({
       this.userEvent = "login";
     },
     logout() {
-      // localStorage.removeItem("accessToken");
-      // localStorage.removeItem("refreshToken");
-      // this.$store.commit("SET_AUTH", false);
       logoutReq();
-      this.$router.push({ name: "Main" });
+      if (this.$route.path !== "/") this.$router.push({ name: "Main" });
     },
     changeUserEvent(type: string) {
       this.userEvent = type;

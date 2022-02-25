@@ -5,12 +5,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isMember: localStorage.getItem('accessToken') ? true : false,
+    userid: localStorage.getItem('userid') ?? null,
     onModal: false
   },
   mutations: {
     SET_AUTH(state, value) {
-      state.isMember = value;
+      state.userid = value;
     },
     SET_ON_MODAL(state, value){
       state.onModal = value;
