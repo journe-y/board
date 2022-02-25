@@ -62,8 +62,9 @@ export default Vue.extend({
   },
   methods: {
     modify() {
-      //token확인+자신글(토큰에있는 아이디확인)인지 확인 후 해당 글(id) modify
-      alert();
+      //token확인+자신글(토큰에있는 아이디확인)인지 확인 후 해당 글(id) modify 삭제도 동일
+      //console.log(this.id);
+      this.$router.push({ name: `Modify`, params: { id: this.id.toString() } });
     },
   },
 });

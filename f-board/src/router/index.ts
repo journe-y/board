@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Main from '../views/Main.vue'
 import Read from '../views/Read.vue'
 import { authReq } from '../api/authRequest';
+import { PostDetail } from '@/api/type'
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
@@ -27,9 +28,20 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
-    path:'/modify/:id',
-    name:'Modify',
+    path: '/modify/:id',
+    name: 'Modify',
+    props: true,
     component: () => import('../views/Write.vue'),
+    beforeEnter: function (to, from, next) {
+      authReq(`/post${to.path}`, ({ data }) => {
+        to.params.data = data.post;
+        //to.params.userid = "jiwon";
+
+        next();
+      }, () => {
+        alert('본인의 글만 수정 가능합니다.')
+      })
+    }
   },
   {
     path: `/read/:id`,

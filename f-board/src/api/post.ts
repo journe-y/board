@@ -25,3 +25,7 @@ export function getPostDetail(url: string, success: CallableFunction) {
         console.log(error.msg)
     })
 }
+
+// export function modifyPost(url:string, success:CallbackFunction, error:CallbackFunction){
+//     axios.put(url,{})
+// }

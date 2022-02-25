@@ -14,6 +14,17 @@ router.post('/write', verifyToken, (req, res, next) => {
     res.json({});
 });
 
+router.post('/modify/:id', verifyToken, async (req, res, next) => {
+    const post = await Post.findOne({ where: { id: req.params.id } })
+    if (post.userid !== req.decoded.id) {
+        return res.status(401).json({
+            code: 401,
+            msg: '본인의 글만 수정 가능합니다.',
+        });
+    }
+    return res.json({ post });
+});
+
 router.post('/create', verifyToken, async (req, res, next) => {
     const { title, contents, category } = req.body;
     await Post.create({ title, contents, date: getNow(), category, userid: req.decoded['id'] })

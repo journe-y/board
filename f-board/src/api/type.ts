@@ -6,9 +6,9 @@ export type User = {
 
 export type PostDetail = {
     category: string,
-    contents: string,
+    contents?: string,
     date: string,
-    id: number,
+    id?: number,
     imgpath?: string,
     title: string,
     userid: string

@@ -32,16 +32,21 @@
 import Vue from "vue";
 import QuillEditor from "../components/util/QuillEditor.vue";
 import { writePostReq } from "../api/post";
+import { Route } from "vue-router";
+import { PostDetail } from "../api/type";
 
 export default Vue.extend({
   components: {
     editor: QuillEditor,
   },
+  props: {
+    data: {},
+  },
   data() {
     return {
-      postContent: "",
-      title: "",
-      selected: "",
+      postContent: "" as string,
+      title: "" as string,
+      selected: "" as string,
       options: [
         { value: "HTTP", text: "HTTP" },
         { value: "SpringBoot", text: "SpringBoot" },
@@ -85,6 +90,15 @@ export default Vue.extend({
         }
       );
     },
+  },
+  created() {
+    console.log(this.data);
+    if (this.$route.name !== "Modify") {
+      return;
+    }
+    this.title = this.data.title;
+    //this.selected = this.data.category as string;
+    //this.postContent = this.data.contents as string;
   },
 });
 </script>
