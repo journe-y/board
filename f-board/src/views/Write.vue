@@ -96,7 +96,7 @@ export default Vue.extend({
     if (this.$route.name !== "Modify") {
       return;
     }
-    this.title = this.data.title;
+    //this.title = this.data.title;
     //this.selected = this.data.category as string;
     //this.postContent = this.data.contents as string;
   },
