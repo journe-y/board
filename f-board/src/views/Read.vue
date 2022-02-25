@@ -8,7 +8,18 @@
           </h1>
         </b-col>
         <b-col cols="2"></b-col>
-        <b-col cols="2"> <button>수정</button><button>삭제</button> </b-col>
+        <b-col
+          cols="2"
+          class="postBtn"
+          v-show="data.userid === this.$store.state.userid"
+        >
+          <b-button-group>
+            <b-button variant="outline-success" v-on:click="modify"
+              >수정</b-button
+            >
+            <b-button variant="outline-danger">삭제</b-button>
+          </b-button-group>
+        </b-col>
       </b-row>
       <br />
       <b-row>
@@ -39,6 +50,7 @@ export default Vue.extend({
     return {
       test: "ReadPage",
       data: {},
+      user: localStorage.getItem("userid") ?? "null",
     };
   },
   created() {
@@ -48,11 +60,23 @@ export default Vue.extend({
       contentEl.innerHTML = post.contents;
     });
   },
+  methods: {
+    modify() {
+      //token확인+자신글(토큰에있는 아이디확인)인지 확인 후 해당 글(id) modify 삭제도 동일
+      //console.log(this.id);
+      this.$router.push({ name: `Modify`, params: { id: this.id.toString() } });
+    },
+  },
 });
 </script>
 
 <style scoped>
 .read-page {
   background-color: white;
+}
+.postBtn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 </style>

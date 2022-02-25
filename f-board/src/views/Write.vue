@@ -8,7 +8,11 @@
       placeholder="글 제목"
       trim
     />
-    <b-form-select ref="category" v-model="selected" class="mb-3 form-control fullwidth title">
+    <b-form-select
+      ref="category"
+      v-model="selected"
+      class="mb-3 form-control fullwidth title"
+    >
       <b-form-select-option :value="null" disabled>
         카테고리 선택
       </b-form-select-option>
@@ -28,16 +32,21 @@
 import Vue from "vue";
 import QuillEditor from "../components/util/QuillEditor.vue";
 import { writePostReq } from "../api/post";
+import { Route } from "vue-router";
+import { PostDetail } from "../api/type";
 
 export default Vue.extend({
   components: {
     editor: QuillEditor,
   },
+  props: {
+    data: {},
+  },
   data() {
     return {
-      postContent: "",
-      title: "",
-      selected: "",
+      postContent: "" as string,
+      title: "" as string,
+      selected: "" as string,
       options: [
         { value: "HTTP", text: "HTTP" },
         { value: "SpringBoot", text: "SpringBoot" },
@@ -56,13 +65,13 @@ export default Vue.extend({
         const titleRef = this.$refs.title as any;
         titleRef.focus();
         return;
-      }else if(this.selected === ""){
+      } else if (this.selected === "") {
         alert("카테고리를 선택해주세요");
         const category = this.$refs.category as any;
         category.focus();
         return;
-      }else if(this.postContent === ""){
-         alert("본문을 작성해주세요");
+      } else if (this.postContent === "") {
+        alert("본문을 작성해주세요");
         return;
       }
       writePostReq(
@@ -74,14 +83,22 @@ export default Vue.extend({
         },
         () => {
           alert("글작성 완료");
-          this.$router.push({name:'Main'});
+          this.$router.push({ name: "Main" });
         },
         (err) => {
-          console.log(err);
           alert("글작성 실패");
         }
       );
     },
+  },
+  created() {
+    console.log(this.data);
+    if (this.$route.name !== "Modify") {
+      return;
+    }
+    this.title = this.data.title;
+    //this.selected = this.data.category as string;
+    //this.postContent = this.data.contents as string;
   },
 });
 </script>

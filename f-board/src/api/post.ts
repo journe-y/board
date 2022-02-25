@@ -4,7 +4,7 @@ import { CallbackFunction, Post } from "./type";
 
 
 export function writePostReq(url: string, data: Post, success: CallableFunction, error: CallbackFunction) {
-    authReq("/post/create", () => {
+    authReq(url, () => {
         success()
     }, () => {
         error();
@@ -19,9 +19,13 @@ export function getPostsReq(url: string, success: CallbackFunction) {
 }
 
 export function getPostDetail(url: string, success: CallableFunction) {
-    axios.get(url).then((res)=>{
+    axios.get(url).then((res) => {
         success(res.data.post);
-    }).catch((error)=>{
-        console.log('eeeeeeeeeeeeeeeeee'+error)
+    }).catch((error) => {
+        console.log(error.msg)
     })
 }
+
+// export function modifyPost(url:string, success:CallbackFunction, error:CallbackFunction){
+//     axios.put(url,{})
+// }

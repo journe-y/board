@@ -29,7 +29,7 @@ exports.refreshToken = async (req, res, next) => {
     return next();
   }
   catch (error) {
-    console.log('refreshToken실패...',error)
+    console.log('refreshToken실패...', error)
     return res.status(401).json({
       code: 401,
       msg: '유효하지않은토큰',

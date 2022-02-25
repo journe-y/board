@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Main from '../views/Main.vue'
 import Read from '../views/Read.vue'
 import { authReq } from '../api/authRequest';
+import { PostDetail } from '@/api/type'
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
@@ -16,7 +17,7 @@ const routes: Array<RouteConfig> = [
   {
     path: '/write',
     name: 'Write',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Write.vue'),
+    component: () => import('../views/Write.vue'),
     beforeEnter: function (to, from, next) {
       authReq('/post/write', () => {
         next();
@@ -24,6 +25,22 @@ const routes: Array<RouteConfig> = [
         alert('로그인이 필요합니다.')
       });
 
+    }
+  },
+  {
+    path: '/modify/:id',
+    name: 'Modify',
+    props: true,
+    component: () => import('../views/Write.vue'),
+    beforeEnter: function (to, from, next) {
+      authReq(`/post${to.path}`, ({ data }) => {
+        to.params.data = data.post;
+        //to.params.userid = "jiwon";
+
+        next();
+      }, () => {
+        alert('본인의 글만 수정 가능합니다.')
+      })
     }
   },
   {
