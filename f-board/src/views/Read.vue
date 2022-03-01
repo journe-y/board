@@ -14,9 +14,7 @@
           v-show="data.userid === this.$store.state.userid"
         >
           <b-button-group>
-            <b-button variant="outline-success" v-on:click="modify"
-              >수정</b-button
-            >
+            <b-button variant="outline-success" v-on:click="modify">수정</b-button>
             <b-button variant="outline-danger">삭제</b-button>
           </b-button-group>
         </b-col>

@@ -8,8 +8,6 @@ const { getNow } = require('../util/dateFormatter');
 const router = express.Router();
 const path = require('path');
 
-
-
 router.post('/write', verifyToken, (req, res, next) => {
     res.json({});
 });
@@ -22,6 +20,14 @@ router.post('/modify/:id', verifyToken, async (req, res, next) => {
             msg: '본인의 글만 수정 가능합니다.',
         });
     }
+    if(Object.keys(req.body).includes('contents')){
+        const {contents, title, category} = req.body;
+         await Post.update({ title, contents, category }, { where: { id: req.params.id } });
+         return res.status(200).json({
+            code: 200,
+            msg: '글 수정 완료',
+        });
+        }
     return res.json({ post });
 });
 

@@ -1,15 +1,5 @@
 import axios from "axios";
-import { authReq } from "./authRequest";
 import { CallbackFunction, Post } from "./type";
-
-
-export function writePostReq(url: string, data: Post, success: CallableFunction, error: CallbackFunction) {
-    authReq(url, () => {
-        success()
-    }, () => {
-        error();
-    }, data);
-}
 
 export function getPostsReq(url: string, success: CallbackFunction) {
     axios.get(url)
@@ -25,7 +15,3 @@ export function getPostDetail(url: string, success: CallableFunction) {
         console.log(error.msg)
     })
 }
-
-// export function modifyPost(url:string, success:CallbackFunction, error:CallbackFunction){
-//     axios.put(url,{})
-// }
