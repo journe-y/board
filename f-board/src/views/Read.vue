@@ -15,7 +15,7 @@
         >
           <b-button-group>
             <b-button variant="outline-success" v-on:click="modify">수정</b-button>
-            <b-button variant="outline-danger">삭제</b-button>
+            <b-button variant="outline-danger" v-on:click="onDelete">삭제</b-button>
           </b-button-group>
         </b-col>
       </b-row>
@@ -35,6 +35,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { getPostDetail } from "../api/post";
+import {authReq} from "../api/authRequest";
 import { PostDetail } from "../api/type";
 
 export default Vue.extend({
@@ -61,9 +62,16 @@ export default Vue.extend({
   methods: {
     modify() {
       //token확인+자신글(토큰에있는 아이디확인)인지 확인 후 해당 글(id) modify 삭제도 동일
-      //console.log(this.id);
       this.$router.push({ name: `Modify`, params: { id: this.id.toString() } });
     },
+    onDelete(){
+      authReq(`/post/delete/${this.id}`,()=>{
+        alert('삭제 완료');
+        this.$router.go(-1);
+      },()=>{
+        alert('본인의 글만 삭제 가능합니다.')
+      });
+    }
   },
 });
 </script>
