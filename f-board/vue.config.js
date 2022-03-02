@@ -4,7 +4,7 @@ module.exports = {
         historyApiFallback: true,
         proxy: {
             '^/': {
-                target: 'http://localhost:3001',
+                target: 'https://toyboard.herokuapp.com',
                 changeOrigin: true
             }
         },

@@ -1,7 +1,6 @@
 const express = require('express')
 require("dotenv").config();
 const fs = require('fs');
-const morgan = require('morgan')
 const path = require('path')
 const { sequelize } = require('./models');
 const authRouter = require('./routes/auth');
@@ -11,7 +10,6 @@ const app = express();
 const { refreshToken } = require('./routes/middlewares');
 
 app.set('port', process.env.PORT || 3001);
-app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, '/public')));
 app.use(express.json());
 app.set('view engine', 'vue');
