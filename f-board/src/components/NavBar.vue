@@ -3,7 +3,6 @@
     <b-navbar toggleable="lg" type="dark" variant="" class="navbar">
       <b-container>
         <router-link class="logo" to="/">{{ test }}</router-link>
-
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" class="align__right" is-nav>

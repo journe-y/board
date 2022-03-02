@@ -45,11 +45,17 @@ export default Vue.extend({
   methods: {
     onlogin() {
       if (!this.inputId.length) {
-        alert("아이디 입력을 확인해주세요");
+        this.$store.dispatch("openAlert", {
+          text: "아이디 입력을 확인해주세요",
+          type: "danger",
+        });
         const idRef = this.$refs.id as any;
         idRef.focus();
       } else if (!this.inputId.length) {
-        alert("비밀번호 입력을 확인해주세요");
+        this.$store.dispatch("openAlert", {
+          text: "비밀번호 입력을 확인해주세요",
+          type: "danger",
+        });
         const pwRef = this.$refs.pw as any;
         pwRef.focus();
       } else {
@@ -62,16 +68,24 @@ export default Vue.extend({
             userpw: this.inputPw,
           },
           ({ data }) => {
-            alert(data.msg);
+            this.$store.dispatch("openAlert", {
+              text: data.msg,
+              type: "success",
+            });
             localStorage.setItem("accessToken", data.token);
             localStorage.setItem("refreshToken", data.refreshToken);
             localStorage.setItem("userid", this.inputId);
-           this.$store.commit("SET_AUTH", this.inputId);
+            this.$store.commit("SET_AUTH", this.inputId);
             // this.$emit('@loginOff');
             this.$store.commit("SET_ON_MODAL", false);
           },
           (msg) => {
-            alert(msg);
+            if (msg) {
+              this.$store.dispatch("openAlert", {
+                text: msg,
+                type: "danger",
+              });
+            }
           }
         );
       }

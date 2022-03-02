@@ -1,11 +1,14 @@
 <template>
   <div>
     <b-card
-      img-src="https://picsum.photos/600/300/?image=25"
+      v-bind:img-src="
+        imgpath.length == 0
+          ? 'https://cdn.pixabay.com/photo/2017/03/02/08/58/background-texture-2110724__340.jpg'
+          : imgpath
+      "
       img-alt="Image"
       img-top
       tag="article"
-      style="max-width: 16rem; box-shadow: 0 0.25rem 0.25rem rgb(0 0 0 / 10%)"
       class="m-3 card"
       v-on:click="getPost"
     >
@@ -35,6 +38,9 @@ export default Vue.extend({
       type: String,
       default: "00-00-00",
     },
+    imgpath: {
+      type: String,
+    },
     writer: {
       type: String,
       default: "",
@@ -48,7 +54,6 @@ export default Vue.extend({
   methods: {
     getPost() {
       this.$router.push({ name: `Read`, params: { id: this.id.toString() } });
-     
     },
   },
 });
@@ -56,8 +61,14 @@ export default Vue.extend({
 
 <style scoped>
 .card {
+  width: 16rem;
+  max-width: 16rem;
+  box-shadow: 0 0.25rem 0.25rem rgb(0 0 0 / 10%);
   cursor: pointer;
   transition: 0.2s;
+}
+.card > img{
+  height: 150px;
 }
 .card:hover {
   transform: scale(1.05);

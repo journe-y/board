@@ -85,11 +85,17 @@ export default Vue.extend({
     },
     onJoin() {
       if (!this.inputIdState) {
-        alert("아이디 입력을 확인해주세요");
+        this.$store.dispatch("openAlert", {
+          text: "아이디 입력을 확인해주세요",
+          type: "danger",
+        });
         const idRef = this.$refs.id as any;
         idRef.focusInput();
       } else if (!this.inputPwState) {
-        alert("비밀번호 입력을 확인해주세요");
+        this.$store.dispatch("openAlert", {
+          text: "비밀번호 입력을 확인해주세요",
+          type: "danger",
+        });
         const pwRef = this.$refs.pw as any;
         pwRef.focusInput();
       } else {
@@ -101,20 +107,26 @@ export default Vue.extend({
             userpw: this.inputPw,
           },
           () => {
-            alert("회원가입 성공! 로그인해주세요");
+            this.$store.dispatch("openAlert", {
+              text: "회원가입 성공! 로그인해주세요",
+              type: "success",
+            });
             this.$store.commit("SET_ON_MODAL", false);
           },
           (msg) => {
-            alert(msg);
+            this.$store.dispatch("openAlert", {
+              text: msg,
+              type: "danger",
+            });
             const idRef = this.$refs.id as any;
             idRef.focusInput();
           }
         );
       }
     },
-    goLogin(){
-      this.$emit('@goLogin',"login");
-    }
+    goLogin() {
+      this.$emit("@goLogin", "login");
+    },
   },
 });
 </script>
@@ -130,5 +142,4 @@ export default Vue.extend({
 .fullwidth {
   width: 100%;
 }
-
 </style>

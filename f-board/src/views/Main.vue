@@ -2,14 +2,14 @@
   <section class="main-container">
     <router-link class="add-post" to="/write">글쓰기</router-link>
     <aside class="side">
-      <sidebar></sidebar>
+      <sidebar v-on:@selected="changedCategory"></sidebar>
     </aside>
     <article class="main">
       <card
         v-for="post in posts"
         :key="post.id"
         :id="post.id"
-        :imgPath="post.imgpath"
+        :imgpath="post.imgpath"
         :title="post.title"
         :date="post.date"
         :writer="post.userid"
@@ -30,17 +30,27 @@ export default {
   },
   data() {
     return {
+      originPosts: [],
       posts: [],
     };
   },
   beforeCreate() {
     //all data request
-    getPostsReq(
-      "/post/list",
-      ({ data }) => {
-        this.posts = data.posts;
+    getPostsReq("/post/list", ({ data }) => {
+      this.originPosts = this.posts = data.posts;
+    });
+  },
+  methods: {
+    changedCategory(category) {
+      if (category === "ALL") {
+        console.log(this.originPosts);
+        this.posts = this.originPosts;
+        return;
       }
-    );
+      this.posts = this.originPosts.filter((post) => {
+        return post["category"] === category;
+      });
+    },
   },
 };
 </script>

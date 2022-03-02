@@ -1,8 +1,12 @@
+import store from "@/store";
 import { AxiosError } from "axios";
 
 export function handler({ response }:any) {
     if (isInternalServerError(response.status)) {
-        alert('죄송합니다. 서버에서 잠시 에러가 발생했습니다. 잠시후 다시 시도해주세요.');
+        store.dispatch("openAlert", {
+            text: "죄송합니다. 서버에서 잠시 에러가 발생했습니다. 잠시후 다시 시도해주세요.",
+            type: "danger",
+          });
         return;
     }
     if (isBadRequest(response.status)) {

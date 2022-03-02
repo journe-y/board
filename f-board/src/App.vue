@@ -2,15 +2,18 @@
   <div class="body-container">
     <navbar></navbar>
     <router-view></router-view>
+    <alert></alert>
   </div>
 </template>
 
 <script>
 import NavBar from "./components/NavBar.vue";
+import Alerts from "./components/util/Alerts.vue";
 
 export default {
   components: {
     navbar: NavBar,
+    alert: Alerts,
   },
 };
 </script>

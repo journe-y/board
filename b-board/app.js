@@ -45,7 +45,8 @@ app.use((err, req, res, next) => {
     console.log(err)
     res.locals.message = err.message;
     res.locals.error = process.env.NODE_ENV !== 'production' ? err : {};
-    res.status(err.status || 500);
-    res.json({ msg: 'error' })
+    res.status(err.status || 404);
+    res.sendFile(path.join(__dirname, "/client/index.html"));
+    //res.json({ msg: 'error' })
 });
 

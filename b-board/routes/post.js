@@ -14,8 +14,8 @@ router.post('/write', verifyToken, (req, res, next) => {
 
 
 router.post('/create', verifyToken, async (req, res, next) => {
-    const { title, contents, category } = req.body;
-    await Post.create({ title, contents, date: getNow(), category, userid: req.decoded['id'] })
+    const { title, contents, category, imgpath } = req.body;
+    await Post.create({ title, contents, date: getNow(), category, userid: req.decoded['id'], imgpath })
     res.json({});
 })
 
@@ -38,7 +38,7 @@ router.post('/upload', upload.single('img'), (req, res, next) => {
 
 router.get('/list', async (req, res) => {
     const posts = await Post.findAll({
-        attributes: ['id', 'title', 'category', 'date', 'imgpath', 'userid']
+        attributes: ['id', 'title', 'category', 'date', 'userid', 'imgpath']
     });
     res.json({ posts })
 })
@@ -61,18 +61,18 @@ router.post('/modify/:id', verifyToken, async (req, res, next) => {
             msg: '본인의 글만 수정 가능합니다.',
         });
     }
-    if(Object.keys(req.body).includes('contents')){
-        const {contents, title, category} = req.body;
-         await Post.update({ title, contents, category }, { where: { id: req.params.id } });
-         return res.status(200).json({
+    if (Object.keys(req.body).includes('contents')) {
+        const { contents, title, category, imgpath } = req.body;
+        await Post.update({ title, contents, category, imgpath }, { where: { id: req.params.id } });
+        return res.status(200).json({
             code: 200,
             msg: '글 수정 완료',
-          });
-        }
+        });
+    }
     return res.json({ post });
 });
 
-router.post('/delete/:id',verifyToken, async(req, res, next)=>{
+router.post('/delete/:id', verifyToken, async (req, res, next) => {
     const post = await Post.findOne({ where: { id: req.params.id } })
     if (post.userid !== req.decoded.id) {
         return res.status(401).json({

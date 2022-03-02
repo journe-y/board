@@ -84,8 +84,5 @@ export default {
       return this.$refs.myQuillEditor.quill;
     },
   },
-  mounted() {
-    //console.log("this is current quill instance object", this.editor);
-  },
 };
 </script>

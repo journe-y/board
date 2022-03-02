@@ -17,7 +17,6 @@
 import Vue from "vue";
 
 export default Vue.extend({
-  // category 선택시 store 사용하여 렌더링
   data() {
     return {
       selected: "ALL",
@@ -35,6 +34,7 @@ export default Vue.extend({
   methods: {
     listClick(tapName:string) {
       this.selected = tapName;
+      this.$emit('@selected', tapName);
     },
   },
 });

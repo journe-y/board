@@ -5,6 +5,8 @@ import Main from '../views/Main.vue'
 import Read from '../views/Read.vue'
 import { authReq } from '../api/authRequest';
 import { PostDetail } from '@/api/type'
+import store from '@/store'
+
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
@@ -12,7 +14,6 @@ const routes: Array<RouteConfig> = [
     path: '/',
     name: 'Main',
     component: Main
-    //component: () => import('../views/Main.vue'),
   },
   {
     path: '/write',
@@ -22,7 +23,10 @@ const routes: Array<RouteConfig> = [
       authReq('/post/write', () => {
         next();
       }, () => {
-        alert('로그인이 필요합니다.')
+        store.dispatch("openAlert", {
+          text: "로그인이 필요합니다.",
+          type: "danger",
+        });
       });
 
     }
@@ -37,7 +41,10 @@ const routes: Array<RouteConfig> = [
         to.params.data = data.post;
         next();
       }, () => {
-        alert('본인의 글만 수정 가능합니다.')
+        store.dispatch("openAlert", {
+          text: "본인의 글만 수정 가능합니다",
+          type: "danger",
+        });
       })
     }
   },

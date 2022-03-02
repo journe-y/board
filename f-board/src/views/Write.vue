@@ -62,25 +62,37 @@ export default Vue.extend({
     };
   },
   methods: {
+    getMainImg() {
+      if (this.postContent.indexOf('<img src="') === -1) return "";
+      let startPos = this.postContent.indexOf('<img src="') + 10;
+      let endPost = this.postContent.indexOf('"', startPos);
+      return this.postContent.substring(startPos, endPost);
+    },
     writePost() {
       if (!this.inputCheck()) {
         return;
       }
-      //아래 업데이트처럼 변경해야함....
       authReq(
         "/post/create",
         () => {
-          alert("글작성 완료");
+          this.$store.dispatch("openAlert", {
+            text: "글작성 완료",
+            type: "success",
+          });
           this.$router.push({ name: "Main" });
         },
         (err) => {
-          alert("글작성 실패");
+          this.$store.dispatch("openAlert", {
+            text: "글작성 실패",
+            type: "danger",
+          });
           this.$router.go(-1);
         },
         {
           contents: this.postContent,
           title: this.title,
           category: this.selected,
+          imgpath: this.getMainImg(),
         }
       );
     },
@@ -91,33 +103,49 @@ export default Vue.extend({
       authReq(
         `/post/modify/${this.data.id}`,
         () => {
-          alert(`수정 완료`);
+          this.$store.dispatch("openAlert", {
+            text: "수정 완료",
+            type: "success",
+          });
           this.$router.go(-1);
         },
         () => {
-          alert("본인의 글만 수정 가능합니다.");
+          this.$store.dispatch("openAlert", {
+            text: "본인의 글만 수정 가능합니다.",
+            type: "danger",
+          });
           this.$router.go(-1);
         },
         {
           contents: this.postContent,
           title: this.title,
           category: this.selected,
+          imgpath: this.getMainImg(),
         }
       );
     },
     inputCheck(): boolean {
       if (this.title === "") {
-        alert("글 제목을 입력해주세요");
+        this.$store.dispatch("openAlert", {
+          text: "글 제목을 입력해주세요",
+          type: "danger",
+        });
         const titleRef = this.$refs.title as any;
         titleRef.focus();
         return false;
       } else if (this.selected === "") {
-        alert("카테고리를 선택해주세요");
+        this.$store.dispatch("openAlert", {
+          text: "카테고리를 선택해주세요",
+          type: "danger",
+        });
         const category = this.$refs.category as any;
         category.focus();
         return false;
       } else if (this.postContent === "") {
-        alert("본문을 작성해주세요");
+        this.$store.dispatch("openAlert", {
+          text: "본문을 작성해주세요",
+          type: "danger",
+        });
         return false;
       } else {
         return true;
