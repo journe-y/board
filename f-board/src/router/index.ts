@@ -35,8 +35,6 @@ const routes: Array<RouteConfig> = [
     beforeEnter: function (to, from, next) {
       authReq(`/post${to.path}`, ({ data }) => {
         to.params.data = data.post;
-        //to.params.userid = "jiwon";
-
         next();
       }, () => {
         alert('본인의 글만 수정 가능합니다.')

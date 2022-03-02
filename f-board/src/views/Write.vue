@@ -24,23 +24,27 @@
         {{ item["text"] }}
       </b-form-select-option>
     </b-form-select>
-    <editor v-on:@submit="writePost" />
+    <editor v-bind:originContent="postContent" v-on:@change="editChange" />
+    <button v-if="!this.data" class="add-post" v-on:click="writePost">
+      발행
+    </button>
+    <button v-else class="add-post" v-on:click="updatePost">수정</button>
   </section>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import QuillEditor from "../components/util/QuillEditor.vue";
-import { writePostReq } from "../api/post";
-import { Route } from "vue-router";
-import { PostDetail } from "../api/type";
+import { authReq } from "../api/authRequest";
 
 export default Vue.extend({
   components: {
     editor: QuillEditor,
   },
   props: {
-    data: {},
+    data: {
+      type: Object,
+    },
   },
   data() {
     return {
@@ -58,47 +62,80 @@ export default Vue.extend({
     };
   },
   methods: {
-    writePost(html: string) {
-      this.postContent = html;
-      if (this.title === "") {
-        alert("글 제목을 입력해주세요");
-        const titleRef = this.$refs.title as any;
-        titleRef.focus();
-        return;
-      } else if (this.selected === "") {
-        alert("카테고리를 선택해주세요");
-        const category = this.$refs.category as any;
-        category.focus();
-        return;
-      } else if (this.postContent === "") {
-        alert("본문을 작성해주세요");
+    writePost() {
+      if (!this.inputCheck()) {
         return;
       }
-      writePostReq(
+      //아래 업데이트처럼 변경해야함....
+      authReq(
         "/post/create",
-        {
-          contents: this.postContent,
-          title: this.title,
-          category: this.selected,
-        },
         () => {
           alert("글작성 완료");
           this.$router.push({ name: "Main" });
         },
         (err) => {
           alert("글작성 실패");
+          this.$router.go(-1);
+        },
+        {
+          contents: this.postContent,
+          title: this.title,
+          category: this.selected,
         }
       );
     },
+    updatePost() {
+      if (!this.inputCheck()) {
+        return;
+      }
+      authReq(
+        `/post/modify/${this.data.id}`,
+        () => {
+          alert(`수정 완료`);
+          this.$router.go(-1);
+        },
+        () => {
+          alert("본인의 글만 수정 가능합니다.");
+          this.$router.go(-1);
+        },
+        {
+          contents: this.postContent,
+          title: this.title,
+          category: this.selected,
+        }
+      );
+    },
+    inputCheck(): boolean {
+      if (this.title === "") {
+        alert("글 제목을 입력해주세요");
+        const titleRef = this.$refs.title as any;
+        titleRef.focus();
+        return false;
+      } else if (this.selected === "") {
+        alert("카테고리를 선택해주세요");
+        const category = this.$refs.category as any;
+        category.focus();
+        return false;
+      } else if (this.postContent === "") {
+        alert("본문을 작성해주세요");
+        return false;
+      } else {
+        return true;
+      }
+    },
+    editChange(html: string) {
+      this.postContent = html;
+    },
   },
+
   created() {
-    console.log(this.data);
     if (this.$route.name !== "Modify") {
       return;
     }
-    //this.title = this.data.title;
-    //this.selected = this.data.category as string;
-    //this.postContent = this.data.contents as string;
+
+    this.title = this.data.title as string;
+    this.selected = this.data.category as string;
+    this.postContent = this.data.contents as string;
   },
 });
 </script>

@@ -2,12 +2,12 @@
   <div>
     <quill-editor
       ref="myQuillEditor"
-      :content="content"
+      :content="originContent"
       :options="editorOption"
       @change="onEditorChange($event)"
       @ready="onEditorReady($event)"
     />
-    <button class="add-post" v-on:click="submitPost">발행</button>
+    
     <input style="opacity:0;" id="file" type="file" accept="image/*" v-on:change="uploadedFile" />
   </div>
 </template>
@@ -40,9 +40,15 @@ const customTool = {
   },
 };
 export default {
+  props:{
+    originContent:{
+      type:String,
+      default:""
+    }
+  },
   data() {
     return {
-      content: "",
+      //content: this.originContent,
       editorOption: {
         placeholder: "새 글 작성 ...",
         readOnly: true,
@@ -56,13 +62,10 @@ export default {
   methods: {
     //수정시 ready에서 초기 data로드
     onEditorReady(quill) {
-      console.log("editor ready!", quill);
+      //console.log("editor ready!", quill);
     },
     onEditorChange({ quill, html, text }) {
-      this.content = html;
-    },
-    submitPost() {
-      this.$emit("@submit", this.content);
+      this.$emit('@change',html);
     },
     async uploadedFile(e) {
       const formData = new FormData();
@@ -82,7 +85,7 @@ export default {
     },
   },
   mounted() {
-    console.log("this is current quill instance object", this.editor);
+    //console.log("this is current quill instance object", this.editor);
   },
 };
 </script>
