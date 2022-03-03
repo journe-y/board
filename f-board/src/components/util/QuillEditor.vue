@@ -76,8 +76,18 @@ export default {
     async uploadedFile(e) {
       const formData = new FormData();
       formData.append("img", e.target.files[0]);
+      if (e.target.files[0].size > 90000) {
+         this.$store.dispatch("openAlert", {
+          text: "이미지 사이즈가 너무 큽니다 (90킬로바이트 이하만 가능)",
+          type: "danger",
+        });
+        return;
+      }
       try {
-        const result = await axios.post("https://toyboard.herokuapp.com/post/upload", formData);
+        const result = await axios.post(
+          "https://toyboard.herokuapp.com/post/upload",
+          formData
+        );
         let range = this.editor.getSelection();
         this.editor.insertEmbed(range.index, "image", result.data.url);
       } catch (err) {
