@@ -77,7 +77,7 @@ export default {
       const formData = new FormData();
       formData.append("img", e.target.files[0]);
       try {
-        const result = await axios.post("/post/upload", formData);
+        const result = await axios.post("https://toyboard.herokuapp.com/post/upload", formData);
         let range = this.editor.getSelection();
         this.editor.insertEmbed(range.index, "image", result.data.url);
       } catch (err) {
