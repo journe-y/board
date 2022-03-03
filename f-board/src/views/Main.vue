@@ -36,7 +36,7 @@ export default {
   },
   beforeCreate() {
     //all data request
-    getPostsReq("/post/list", ({ data }) => {
+    getPostsReq("https://toyboard.herokuapp.com/post/list", ({ data }) => {
       this.originPosts = this.posts = data.posts;
     });
   },

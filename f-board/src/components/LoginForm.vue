@@ -59,7 +59,7 @@ export default Vue.extend({
         const pwRef = this.$refs.pw as any;
         pwRef.focus();
       } else {
-        const LOGIN_URL = "/auth/login";
+        const LOGIN_URL = "https://toyboard.herokuapp.com/auth/login";
 
         loginReq(
           LOGIN_URL,

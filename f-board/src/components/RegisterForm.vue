@@ -99,7 +99,7 @@ export default Vue.extend({
         const pwRef = this.$refs.pw as any;
         pwRef.focusInput();
       } else {
-        const JOIN_URL = "/auth/register";
+        const JOIN_URL = "https://toyboard.herokuapp.com/auth/register";
         registerReq(
           JOIN_URL,
           {
