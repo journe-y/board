@@ -1,6 +1,6 @@
 <template>
   <div class="join-form">
-    <h4>회원가입</h4>
+    <h4>회원가입(암호화안됨)</h4>
     <br />
     <pattern-input
       ref="id"
