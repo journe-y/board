@@ -7,25 +7,31 @@
       @change="onEditorChange($event)"
       @ready="onEditorReady($event)"
     />
-    
-    <input style="opacity:0;" id="file" type="file" accept="image/*" v-on:change="uploadedFile" />
+
+    <input
+      style="opacity: 0"
+      id="file"
+      type="file"
+      accept="image/*"
+      v-on:change="uploadedFile"
+    />
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 //toolbar설정
 const toolbarOptions = [
   [{ header: [1, 2, 3, 4, 5, 6, false] }],
-  ["bold", "italic", "underline", "strike"], 
+  ["bold", "italic", "underline", "strike"],
   ["blockquote", "code-block"],
 
   [{ list: "ordered" }, { list: "bullet" }],
-  [{ indent: "-1" }, { indent: "+1" }], 
-  [{ direction: "rtl" }], 
+  [{ indent: "-1" }, { indent: "+1" }],
+  [{ direction: "rtl" }],
 
-  [{ color: [] }, { background: [] }], 
+  [{ color: [] }, { background: [] }],
   [{ font: [] }],
   [{ align: [] }],
   ["image"],
@@ -40,11 +46,11 @@ const customTool = {
   },
 };
 export default {
-  props:{
-    originContent:{
-      type:String,
-      default:""
-    }
+  props: {
+    originContent: {
+      type: String,
+      default: "",
+    },
   },
   data() {
     return {
@@ -65,7 +71,7 @@ export default {
       //console.log("editor ready!", quill);
     },
     onEditorChange({ quill, html, text }) {
-      this.$emit('@change',html);
+      this.$emit("@change", html);
     },
     async uploadedFile(e) {
       const formData = new FormData();
@@ -75,7 +81,10 @@ export default {
         let range = this.editor.getSelection();
         this.editor.insertEmbed(range.index, "image", result.data.url);
       } catch (err) {
-        alert("이미지 로드 실패 다시 시도해주세요");
+        this.$store.dispatch("openAlert", {
+          text: "이미지 로드 실패 다시 시도해주세요",
+          type: "danger",
+        });
       }
     },
   },
