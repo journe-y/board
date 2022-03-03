@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
 import Main from '../views/Main.vue'
 import Read from '../views/Read.vue'
 import { authReq } from '../api/authRequest';
@@ -54,11 +53,6 @@ const routes: Array<RouteConfig> = [
     component: Read,
     props: true
   },
-  {
-    name: "catch-all",
-    path: "*",
-    component: Home
-  }
 ]
 
 const router = new VueRouter({
