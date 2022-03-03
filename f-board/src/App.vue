@@ -106,7 +106,21 @@ body,
     display: none;
   }
 }
+@media handheld and (max-width: 1500px) {
+  .side {
+    display: none;
+  }
+}
 @media screen and (max-width: 370px) {
+ .quill-editor,
+.ql-editor {
+  width: 100%;
+  box-shadow: 0px 0px 2px 2px rgb(215, 221, 253);
+  min-height: 40vh;
+  background-color: white;
+}
+}
+@media handheld and (max-width: 1500px) {
  .quill-editor,
 .ql-editor {
   width: 100%;

@@ -7,6 +7,8 @@ const multer = require('multer');
 const { getNow } = require('../util/dateFormatter');
 const router = express.Router();
 const path = require('path');
+const cloudinary = require('cloudinary').v2;
+const { CloudinaryStorage } = require('multer-storage-cloudinary');
 
 router.post('/write', verifyToken, (req, res, next) => {
     res.json({});
@@ -19,20 +21,28 @@ router.post('/create', verifyToken, async (req, res, next) => {
     res.json({});
 })
 
-const upload = multer({
-    storage: multer.diskStorage({
-        destination(req, file, done) {
-            done(null, 'public/uploads/');
-        },
-        filename(req, file, done) {
-            const ext = path.extname(file.originalname);
-            done(null, path.basename(file.originalname, ext) + Date.now() + ext);
-        },
-    }),
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.KEY,
+    api_secret: process.env.SECRET,
 });
 
+const storage = new CloudinaryStorage({
+    cloudinary: cloudinary,
+    params: {
+        folder: 'uploads',
+        format: async (req, file) => 'png',
+        public_id: (req, file) => {
+            const ext = path.extname(file.originalname);
+            return path.basename(file.originalname, ext) + Date.now() + ext;
+        },
+    },
+});
+
+const upload = multer({ storage: storage });
+
 router.post('/upload', upload.single('img'), (req, res, next) => {
-    const url = `http://localhost:3001/uploads/${req.file.filename}`;
+    const url = req.file.path;
     res.json({ url });
 })
 
@@ -43,10 +53,6 @@ router.get('/list', async (req, res) => {
     res.json({ posts })
 })
 
-// router.get('/list:category', (req, res) => {
-//     console.log('=====================',category);
-//     res.json({})
-// })
 
 router.get('/read/:id', async (req, res) => {
     const post = await Post.findOne({ where: { id: req.params.id } })

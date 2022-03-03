@@ -128,5 +128,11 @@ export default Vue.extend({
     padding: 7px 7px;
   }
 }
-
+@media handheld and (max-width: 1500px) {
+  .align__right {
+    border-radius: 10px;
+    background-color: white;
+    padding: 7px 7px;
+  }
+}
 </style>
