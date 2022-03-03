@@ -173,4 +173,6 @@ export default Vue.extend({
   width: 80vw;
   margin-bottom: 10px;
 }
+
+
 </style>

@@ -100,4 +100,19 @@ body,
   margin-top: 5px;
   font-size: 12px;
 }
+
+@media screen and (max-width: 992px) {
+  .side {
+    display: none;
+  }
+}
+@media screen and (max-width: 370px) {
+ .quill-editor,
+.ql-editor {
+  width: 100%;
+  box-shadow: 0px 0px 2px 2px rgb(215, 221, 253);
+  min-height: 40vh;
+  background-color: white;
+}
+}
 </style>

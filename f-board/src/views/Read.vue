@@ -7,9 +7,9 @@
             <b>{{ data.title }}</b>
           </h1>
         </b-col>
-        <b-col cols="2"></b-col>
+        <b-col md="2" sm="4"></b-col>
         <b-col
-          cols="2"
+           md="2" sm="6"
           class="postBtn"
           v-show="data.userid === this.$store.state.userid"
         >
@@ -25,8 +25,8 @@
       </b-row>
       <br />
       <b-row>
-        <b-col cols="2">작성자 : {{ data.userid }}</b-col>
-        <b-col cols="10">{{ data.date }}</b-col>
+        <b-col md="2" sm="12">작성자 : {{ data.userid }}</b-col>
+        <b-col md="10" sm="12">{{ data.date }}</b-col>
       </b-row>
       <br />
       <hr />

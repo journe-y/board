@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html lang="">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
-    <link href="//cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
-<link href="//cdn.quilljs.com/1.0.0/quill.bubble.css" rel="stylesheet">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-  </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta property="og:url" content="https://journe-y.github.io/board/">
+  <meta property="og:title" content="Jiwon-BBOaRD">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://scontent-ssn1-1.xx.fbcdn.net/v/t1.6435-9/119202797_1249946168691412_1285853032865946017_n.jpg?_nc_cat=107&ccb=1-5&_nc_sid=84a396&_nc_ohc=nExKhYCvZxgAX9adx60&_nc_ht=scontent-ssn1-1.xx&oh=00_AT9-p9ACSdnpLYBA5BB2Q2DSyePSZgeGIZGllFZ4GIUn4Q&oe=62454C5A">
+  <meta property="og:description" content="지원이만든게시판">
+  <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+  <link href="//cdn.quilljs.com/1.0.0/quill.snow.css" rel="stylesheet">
+  <link href="//cdn.quilljs.com/1.0.0/quill.bubble.css" rel="stylesheet">
+  
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+</head>
+
+<body>
+  <noscript>
+    <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled.
+        Please enable it to continue.</strong>
+  </noscript>
+  <div id="app"></div>
+  <!-- built files will be auto injected -->
+</body>
+
 </html>

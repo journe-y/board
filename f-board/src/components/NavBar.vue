@@ -3,11 +3,14 @@
     <b-navbar toggleable="lg" type="dark" variant="" class="navbar">
       <b-container>
         <router-link class="logo" to="/">{{ test }}</router-link>
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <b-navbar-toggle
+          class="nav-toggle-btn"
+          target="nav-collapse"
+        ></b-navbar-toggle>
 
         <b-collapse id="nav-collapse" class="align__right" is-nav>
           <!-- Right aligned nav items -->
-          <b-navbar-nav class="ml-auto">
+          <b-navbar-nav class="ml-auto buttons">
             <b-button-group v-if="!this.$store.state.userid">
               <b-button
                 variant="outline-primary"
@@ -114,4 +117,16 @@ export default Vue.extend({
   flex-direction: row-reverse;
   width: 100%;
 }
+.nav-toggle-btn {
+  background-color: #0d6efd;
+}
+
+@media screen and (max-width: 992px) {
+  .align__right {
+    border-radius: 10px;
+    background-color: white;
+    padding: 7px 7px;
+  }
+}
+
 </style>
