@@ -57,7 +57,7 @@ export default Vue.extend({
     };
   },
   created() {
-    getPostDetail(`/post/read/${this.id}`, (post: PostDetail) => {
+    getPostDetail(`https://toyboard.herokuapp.com/post/read/${this.id}`, (post: PostDetail) => {
       this.data = post;
       const contentEl: any = this.$refs.content;
       contentEl.innerHTML = post.contents;
@@ -70,7 +70,7 @@ export default Vue.extend({
     },
     onDelete() {
       authReq(
-        `/post/delete/${this.id}`,
+        `https://toyboard.herokuapp.com/post/delete/${this.id}`,
         () => {
           this.$store.dispatch("openAlert", {
             text: "삭제 완료",

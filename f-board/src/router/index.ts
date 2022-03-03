@@ -20,7 +20,7 @@ const routes: Array<RouteConfig> = [
     name: 'Write',
     component: () => import('../views/Write.vue'),
     beforeEnter: function (to, from, next) {
-      authReq('/post/write', () => {
+      authReq('https://toyboard.herokuapp.com/post/write', () => {
         next();
       }, () => {
         store.dispatch("openAlert", {
@@ -37,7 +37,7 @@ const routes: Array<RouteConfig> = [
     props: true,
     component: () => import('../views/Write.vue'),
     beforeEnter: function (to, from, next) {
-      authReq(`/post${to.path}`, ({ data }) => {
+      authReq(`https://toyboard.herokuapp.com/post${to.path}`, ({ data }) => {
         to.params.data = data.post;
         next();
       }, () => {

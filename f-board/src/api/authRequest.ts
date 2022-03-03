@@ -10,7 +10,7 @@ export function authReq(URL: string, success: CallbackFunction, error: CallbackF
         })
         .catch((err) => {
             if (handler(err) === '토큰만료') {
-                axios.post('/refresh', reqData ? reqData : {}, { headers: { 'Content-Type': 'application/json', "refreshtoken": `${localStorage.getItem('refreshToken')}` } })
+                axios.post('https://toyboard.herokuapp.com/refresh', reqData ? reqData : {}, { headers: { 'Content-Type': 'application/json', "refreshtoken": `${localStorage.getItem('refreshToken')}` } })
                     .then(({ data }) => {
                         localStorage.setItem("accessToken", data.token);
                         localStorage.setItem("refreshToken", data.refreshToken);

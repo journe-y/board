@@ -73,7 +73,7 @@ export default Vue.extend({
         return;
       }
       authReq(
-        "/post/create",
+        "https://toyboard.herokuapp.com/post/create",
         () => {
           this.$store.dispatch("openAlert", {
             text: "글작성 완료",
@@ -101,7 +101,7 @@ export default Vue.extend({
         return;
       }
       authReq(
-        `/post/modify/${this.data.id}`,
+        `https://toyboard.herokuapp.com/post/modify/${this.data.id}`,
         () => {
           this.$store.dispatch("openAlert", {
             text: "수정 완료",
