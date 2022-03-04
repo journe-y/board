@@ -1,19 +1,10 @@
-import axios, { AxiosError } from "axios"
-import { handler } from "./errorHandle";
-import { CallbackFunction, User } from "./type";
+import axios from "axios"
+import { User } from "./type";
 
-export function registerReq(url: string, data: User, callback: CallbackFunction, errCallback?: CallbackFunction) {
-    axios.post(url, data).then((res) => {
-        callback();
-    }).catch((err: Error | AxiosError) => {
-        errCallback ? errCallback(handler(err)) : null;
-    });
+export function registerReq(data: User) {
+    return axios.post('https://toyboard.herokuapp.com/auth/register', data);
 }
 
-export function loginReq(url: string, data: User, callback: CallbackFunction, errCallback?: CallbackFunction) {
-    axios.post(url, data).then((res) => {
-        callback(res);
-    }).catch((err) => {
-        errCallback ? errCallback(handler(err)) : null;
-    });
+export function loginReq(data: User) {
+    return axios.post("https://toyboard.herokuapp.com/auth/login", data);
 }

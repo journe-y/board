@@ -1,17 +1,13 @@
+import router from "@/router";
+import store from "@/store";
 import axios from "axios";
-import { CallbackFunction, Post } from "./type";
+import { PostDetail } from "./type";
 
-export function getPostsReq(url: string, success: CallbackFunction) {
-    axios.get(url)
-        .then((res) => {
-            success(res)
-        })
+export function getPostsReq(): any{
+    return axios.get("https://toyboard.herokuapp.com/post/list");
+} 
+
+export function getPostDetail(id: number) {
+    return axios.get(`https://toyboard.herokuapp.com/post/read/${id}`)
 }
 
-export function getPostDetail(url: string, success: CallableFunction) {
-    axios.get(url).then((res) => {
-        success(res.data.post);
-    }).catch((error) => {
-        console.log(error.msg)
-    })
-}

@@ -99,29 +99,26 @@ export default Vue.extend({
         const pwRef = this.$refs.pw as any;
         pwRef.focusInput();
       } else {
-        const JOIN_URL = "https://toyboard.herokuapp.com/auth/register";
-        registerReq(
-          JOIN_URL,
-          {
-            userid: this.inputId,
-            userpw: this.inputPw,
-          },
-          () => {
+        registerReq({
+          userid: this.inputId,
+          userpw: this.inputPw,
+        })
+          .then(() => {
             this.$store.dispatch("openAlert", {
               text: "회원가입 성공! 로그인해주세요",
               type: "success",
             });
             this.$store.commit("SET_ON_MODAL", false);
-          },
-          (msg) => {
+          })
+          .catch((error) => {
+            console.log(error.response.data.msg)
             this.$store.dispatch("openAlert", {
-              text: msg,
+              text: JSON.stringify(error.response.data.msg),
               type: "danger",
             });
             const idRef = this.$refs.id as any;
             idRef.focusInput();
-          }
-        );
+          });
       }
     },
     goLogin() {

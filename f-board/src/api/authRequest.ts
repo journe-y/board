@@ -14,13 +14,8 @@ export function authReq(URL: string, success: CallbackFunction, error: CallbackF
                     .then(({ data }) => {
                         localStorage.setItem("accessToken", data.token);
                         localStorage.setItem("refreshToken", data.refreshToken);
-                        //reqData ? authReq(URL, success, error, reqData) : success();
                         authReq(URL, success, error, reqData)
-                    }).catch(() => {
-                        logoutReq()
-                        error()
-                        store.commit("SET_ON_MODAL", true)
-                    });
+                    })
             } else if (handler(err) === '유효하지않은토큰') {
                 logoutReq()
                 store.commit("SET_ON_MODAL", true)

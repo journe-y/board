@@ -59,15 +59,12 @@ export default Vue.extend({
         const pwRef = this.$refs.pw as any;
         pwRef.focus();
       } else {
-        const LOGIN_URL = "https://toyboard.herokuapp.com/auth/login";
-
-        loginReq(
-          LOGIN_URL,
-          {
-            userid: this.inputId,
-            userpw: this.inputPw,
-          },
-          ({ data }) => {
+        // const LOGIN_URL = "https://toyboard.herokuapp.com/auth/login";
+        loginReq({
+          userid: this.inputId,
+          userpw: this.inputPw,
+        })
+          .then(({ data }) => {
             this.$store.dispatch("openAlert", {
               text: data.msg,
               type: "success",
@@ -78,16 +75,15 @@ export default Vue.extend({
             this.$store.commit("SET_AUTH", this.inputId);
             // this.$emit('@loginOff');
             this.$store.commit("SET_ON_MODAL", false);
-          },
-          (msg) => {
-            if (msg) {
+          })
+          .catch((error) => {
+            if (error.response.data.msg) {
               this.$store.dispatch("openAlert", {
-                text: msg,
+                text: error.response.data.msg,
                 type: "danger",
               });
             }
-          }
-        );
+          });
       }
     },
     pwKeyup(e: KeyboardEvent) {

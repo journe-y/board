@@ -9,7 +9,8 @@
         </b-col>
         <b-col md="2" sm="4"></b-col>
         <b-col
-           md="2" sm="6"
+          md="2"
+          sm="6"
           class="postBtn"
           v-show="data.userid === this.$store.state.userid"
         >
@@ -45,7 +46,7 @@ import { PostDetail } from "../api/type";
 export default Vue.extend({
   props: {
     id: {
-      type: String || Number,
+      type: Number,
       default: 0,
     },
   },
@@ -57,10 +58,10 @@ export default Vue.extend({
     };
   },
   created() {
-    getPostDetail(`https://toyboard.herokuapp.com/post/read/${this.id}`, (post: PostDetail) => {
-      this.data = post;
+    getPostDetail(this.id).then((res) => {
+      this.data = res.data.post;
       const contentEl: any = this.$refs.content;
-      contentEl.innerHTML = post.contents;
+      contentEl.innerHTML = res.data.post.contents;
     });
   },
   methods: {
